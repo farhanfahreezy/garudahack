@@ -160,7 +160,7 @@ export default function Home() {
             type="submit"
             className="w-full max-w-[350px] px-6 py-3 font-bold text-[18px] text-center text-white rounded-3xl bg-primaryYellow hover:scale-105 active:scale-95 transition-all"
           >
-            LOG IN
+            REGISTER
           </button>
           <Link href={"/login"} className="flex justify-center w-full">
             <p className="pt-2 text-sm text-primaryYellow font-medium opacity-[90%] hover:opacity-[100%] transition-all">
