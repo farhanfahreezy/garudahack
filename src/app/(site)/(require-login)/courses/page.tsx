@@ -21,9 +21,12 @@ const totalTask = 14;
 const points = 29;
 const availablePoints = 35;
 
-const completionCourse = Math.round((completedCourse / totalCourse) * 100);
-const completionTask = Math.round((completedTask / totalTask) * 100);
-const completionPoints = Math.round((points / availablePoints) * 100);
+// const completionCourse = Math.round((completedCourse / totalCourse) * 100);
+// const completionTask = Math.round((completedTask / totalTask) * 100);
+// const completionPoints = Math.round((points / availablePoints) * 100);
+const completionCourse = 70;
+const completionTask = 40;
+const completionPoints = 30;
 
 const course1: CoursePreviewProps = {
   courseId: "1",

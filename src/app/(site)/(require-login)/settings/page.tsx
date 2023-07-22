@@ -9,10 +9,12 @@ import {
   AiOutlineUnlock,
   AiOutlineQuestionCircle,
 } from "react-icons/ai";
+import { BiLogOut } from "react-icons/bi";
 import { FaAssistiveListeningSystems } from "react-icons/fa";
 import { ImEyeMinus } from "react-icons/im";
 import Toggle from "@/app/components/Toggle";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 export default function Home() {
   const [data, setdata] = useState({
@@ -96,6 +98,15 @@ export default function Home() {
             <AiOutlineQuestionCircle />
             <div>About us</div>
           </Link>
+        </button>
+        <button
+          className="border-b-[0.5px] border-[#A5A0A0] text-red-400 w-full py-2 px-7"
+          onClick={() => signOut()}
+        >
+          <div className="flex flex-row justify-start items-center gap-2">
+            <BiLogOut color={"#EF5350"} />
+            <div>Log out</div>
+          </div>
         </button>
       </div>
     </div>
