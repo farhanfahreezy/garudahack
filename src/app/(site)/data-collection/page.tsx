@@ -316,9 +316,7 @@ export default function Home() {
           <input
             type="checkbox"
             checked={agreement}
-            onClick={() => {
-              setAgreement(!agreement);
-            }}
+            onChange={() => setAgreement(!agreement)}
           />
           <div className="text-[10px] text-[#A5A0A0]">
             By submitting the form, you agree to share your data with Binamasa

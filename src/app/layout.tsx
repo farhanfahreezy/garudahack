@@ -6,7 +6,7 @@ import ToasterContext from "./context/ToasterContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "BinaBisa",
+  title: "binamasa",
   description: "Empowering Opportunities for All",
 };
 
