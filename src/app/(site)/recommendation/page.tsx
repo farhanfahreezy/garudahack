@@ -93,7 +93,10 @@ export default function Home() {
             >
               Repeat Data Entry
             </Link>
-            <Link href={"/home"} className="py-2 px-6 bg-green-400 rounded-lg">
+            <Link
+              href={"/voice-assist"}
+              className="py-2 px-6 bg-green-400 rounded-lg"
+            >
               Start my journey
             </Link>
           </div>
