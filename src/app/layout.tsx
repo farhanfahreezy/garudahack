@@ -5,11 +5,10 @@ import ToasterContext from "./context/ToasterContext";
 import Provider from "./(utils)/provider";
 import { ClientProvider } from "@/utils/trpc-provider";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "BinaBisa",
+  title: "Binabisa",
   description: "Empowering Opportunities for All",
 };
 
