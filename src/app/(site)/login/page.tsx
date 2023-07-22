@@ -11,20 +11,61 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
+import { signIn, useSession } from "next-auth/react";
+import { redirect } from 'next/navigation'
+import { stat } from "fs";
+
+interface formProps {
+  email: string;
+  password: string;
+}
 
 export default function Home() {
+
+
+
   // CONST
-  const [data, setData] = useState({
-    username: "",
+  const [data, setData] = useState<formProps>({
+    email: "",
     password: "",
   });
+  const router = useRouter();
+  
+  const { data: session, status } = useSession();
+
+
+  if(status === "loading"){
+    return <div>Loading...</div>
+  }
+
+  if(status == "authenticated"){
+    redirect("/home")
+  }
 
   // HOOKS
 
   // FUNCTION
   const submitLogin: FormEventHandler<HTMLFormElement> = async (event) => {
-    event.preventDefault();
-    console.log(data);
+    try {
+      event.preventDefault();
+
+      // Perform login authentication logic here
+      const res = await signIn("credentials", {
+        redirect: true,
+        email: data.email,
+        password: data.password,
+        callbackUrl: "/home",
+      });
+      // print error if error
+      if (res?.error) {
+        toast.error("Invalid credentials");
+      } else {
+        toast.success("Login success");
+        router.refresh();
+        
+      }
+    } catch (error) {}
+    
   };
   return (
     <div className="relative flex flex-col justify-center items-center w-full min-h-screen bg-primaryBg">
@@ -49,9 +90,9 @@ export default function Home() {
                 autoComplete="text"
                 required
                 placeholder="username"
-                value={data.username}
+                value={data.email}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  setData({ ...data, username: e.target.value });
+                  setData({ ...data, email: e.target.value });
                 }}
                 className="block w-full rounded-md border-0 py-1.5 shadow-sm text-slate-800 placeholder:text-secondayGray placeholder:opacity-[50%] sm:text-sm sm:leading-6 focus:px-2 transition-all"
               />
