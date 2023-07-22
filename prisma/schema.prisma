@@ -1,0 +1,129 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  password  String
+  imageURL    String?
+  points   Int      @default(0)
+  dataUser DataUser?
+  recommendation RecommendationUser?
+  settings Settings?
+  courses CourseOnUser[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DataUser {
+  id       Int      @id @default(autoincrement())
+  age  Int
+  phoneNumber String
+  levelEducation String
+  workExperience String
+  preferedIndustry String
+  technicalSkills String
+  softSkills String
+  carrierGoals String
+  limitationDesc String
+  partBody String
+  communicationPreferences String
+  accomodationNeeded String
+  user     User     @relation(fields: [userId], references: [id])
+  userId   Int   @unique
+}
+
+model RecommendationUser {
+  id       Int      @id @default(autoincrement())
+  strength String
+  character String
+  jobRecommendation String[]
+  courseRecommendation String[]
+  user     User     @relation(fields: [userId], references: [id])
+  userId   Int   @unique
+}
+
+enum FontSize {
+  SMALL
+  MEDIUM
+  LARGE
+}
+
+model Settings{
+  id       Int      @id @default(autoincrement())
+  notification Boolean
+  notificationSound Boolean
+  voiceAssistance Boolean
+  colorBlind Boolean
+  fontSize FontSize
+  user     User     @relation(fields: [userId], references: [id])
+  userId   Int   @unique
+}
+
+model CourseOnUser {
+  id       Int      @id @default(autoincrement())
+  course   Course   @relation(fields: [courseId], references: [id])
+  courseId Int
+  user     User     @relation(fields: [userId], references: [id])
+  userId   Int
+  module  ModuleOnUser[]
+  status   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Course {
+  id       Int      @id @default(autoincrement())
+  title    String
+  desc     String
+  provider String
+  modules CourseOnUser[]
+  moduleTime Int
+  module Module[]
+}
+
+model Module {
+  id       Int      @id @default(autoincrement())
+  title    String
+  desc     String
+  course   Course   @relation(fields: [courseId], references: [id])
+  courseId Int
+  moduleOnUser ModuleOnUser[]
+  moduleTime Int
+  task Task[]
+}
+
+model ModuleOnUser {
+  id       Int      @id @default(autoincrement())
+  module   Module   @relation(fields: [moduleId], references: [id])
+  moduleId Int
+  courseOnUser   CourseOnUser   @relation(fields: [courseOnUserId], references: [id])
+  courseOnUserId Int
+  status   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Task {
+  id      Int      @id @default(autoincrement())
+  question String
+  answer String
+  multipleChoice String[]
+  module Module @relation(fields: [moduleId], references: [id])
+  moduleId Int
+}
+
+
+
+
+
