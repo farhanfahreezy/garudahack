@@ -1,12 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import React, { ChangeEvent, FormEventHandler, useState, useEffect } from "react";
+import React, {
+  ChangeEvent,
+  FormEventHandler,
+  useState,
+  useEffect,
+} from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { trpc } from "@/utils/trpc";
 import { signIn, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { ImSpinner } from "react-icons/im";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -17,10 +23,9 @@ export default function Home() {
     password: "",
     confirmPassword: "",
   });
-
-  const [isLoading, setisLoading] = useState(false);
+  const [loading, setloading] = useState(false);
   const router = useRouter();
-  const result = trpc.user.userRegister.useMutation()
+  const result = trpc.user.userRegister.useMutation();
 
   useEffect(() => {
     if (session) {
@@ -33,13 +38,13 @@ export default function Home() {
     event
   ) => {
     event.preventDefault();
-    setisLoading(true);
+    setloading(true);
     await result.mutateAsync({
-      name: data.name, 
+      name: data.name,
       email: data.email,
       password: data.password,
       rePassword: data.confirmPassword,
-    })
+    });
     if (result) {
       try {
         const res = await signIn("credentials", {
@@ -55,10 +60,10 @@ export default function Home() {
           toast.success("Login success");
           router.refresh();
         }
-      } catch(error) {}
-      setisLoading(false);
-      }
-      
+      } catch (error) {}
+    }
+    setloading(false);
+
     console.log(data);
   };
 
@@ -174,9 +179,16 @@ export default function Home() {
         <div className="flex flex-col w-full justify-center items-center gap-10">
           <button
             type="submit"
-            className="w-full max-w-[350px] px-6 py-3 font-bold text-[18px] text-center text-white rounded-3xl bg-primaryYellow hover:scale-105 active:scale-95 transition-all"
+            disabled={loading}
+            className="w-full max-w-[350px] px-6 py-3 font-bold text-[18px] text-center text-white rounded-3xl bg-primaryYellow hover:scale-105 active:scale-95 transition-all disabled:opacity-70"
           >
-            REGISTER
+            {loading ? (
+              <div className="flex flex-col items-center justify-center animate-spin">
+                <ImSpinner size={25} />
+              </div>
+            ) : (
+              "REGISTER"
+            )}
           </button>
           <Link href={"/login"} className="flex justify-center w-full">
             <p className="pt-2 text-sm text-primaryYellow font-medium opacity-[90%] hover:opacity-[100%] transition-all">

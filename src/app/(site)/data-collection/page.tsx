@@ -2,6 +2,7 @@
 import { trpc } from "@/utils/trpc";
 import { ChangeEvent, FormEventHandler, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ImSpinner } from "react-icons/im";
 
 export default function Home() {
   const [data, setData] = useState({
@@ -23,6 +24,7 @@ export default function Home() {
   const [isSubmitSafe, setisSubmitSafe] = useState(false);
   const result = trpc.user.userDataCollection.useMutation();
   const router = useRouter();
+  const [loading, setloading] = useState(false);
 
   useEffect(() => {
     if (agreement) {
@@ -34,6 +36,7 @@ export default function Home() {
 
   const submitData: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
+    setloading(true);
     result.mutate({
       age: parseInt(data.age),
       phoneNumber: data.phoneNumber,
@@ -335,10 +338,16 @@ export default function Home() {
       <div className="flex flex-col w-full justify-center items-center gap-10">
         <button
           type="submit"
-          disabled={!isSubmitSafe}
+          disabled={!isSubmitSafe || loading}
           className="w-full max-w-[350px] px-6 py-3 font-bold text-[18px] text-center text-white rounded-3xl bg-primaryYellow hover:scale-105 active:scale-95 transition-all disabled:opacity-70 disabled:scale-100 disabled:cursor-not-allowed"
         >
-          Submit
+          {loading ? (
+            <div className="flex flex-col items-center justify-center animate-spin">
+              <ImSpinner size={25} />
+            </div>
+          ) : (
+            "Submit"
+          )}
         </button>
         <div className="flex flex-row w-full justify-center px-10 gap-5">
           <input
