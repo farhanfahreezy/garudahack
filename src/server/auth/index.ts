@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { Credentials } from "@/utils/type";
 import { prisma } from "../db";
 import type { GetServerSidePropsContext } from "next";
+import { compareHash } from "@/utils/auth";
 
 
 export const authOptions: NextAuthOptions = {
@@ -36,7 +37,7 @@ export const authOptions: NextAuthOptions = {
               throw new Error("User tidak ditemukan");
             }
     
-            const isPasswordValid = user.password === password;
+            const isPasswordValid = await compareHash(password, user.password);
     
             if (!isPasswordValid) {
               throw new Error("Password salah");

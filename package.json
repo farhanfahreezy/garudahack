@@ -17,6 +17,7 @@
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.14",
+    "bcrypt": "^5.1.0",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.11",
     "next": "13.4.11",
@@ -32,6 +33,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/node": "^20.4.3",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
