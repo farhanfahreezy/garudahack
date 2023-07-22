@@ -7,7 +7,7 @@ import Provider from "./(utils)/provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "binamasa",
+  title: "BinaBisa",
   description: "Empowering Opportunities for All",
 };
 

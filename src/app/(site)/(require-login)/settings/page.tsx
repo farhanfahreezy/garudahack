@@ -35,6 +35,12 @@ export default function Home() {
           />
           <div className="flex flex-col">
             <div className="text-[18px] font-medium">{data.name}</div>
+            <Link
+              href={"/settings/edit-profile"}
+              className="text-[12px] text-primaryYellow"
+            >
+              Edit profile
+            </Link>
           </div>
         </div>
       </div>

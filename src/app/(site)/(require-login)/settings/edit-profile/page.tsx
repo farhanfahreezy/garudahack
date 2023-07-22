@@ -6,14 +6,11 @@ import { MdArrowBackIosNew } from "react-icons/md";
 
 export default function Home() {
   const [data, setdata] = useState({
-    oldPassword: "",
-    newPassword: "",
-    confirmNewPassword: "",
+    email: "",
+    name: "",
   });
 
-  const submitNewPassword: FormEventHandler<HTMLFormElement> = async (
-    event
-  ) => {
+  const submitNewProfile: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     console.log(data);
   };
@@ -22,31 +19,33 @@ export default function Home() {
       <Link href={"/settings"} className="absolute top-[20px] left-[15px]">
         <MdArrowBackIosNew color={"#FF914D"} size={30} />
       </Link>
-      <div className="text-[30px] text-primaryYellow font-bold">Security</div>
-      <div className="text-[#3E3C3C] py-2">Change password</div>
+      <div className="text-[30px] text-primaryYellow font-bold">
+        Edit Profile
+      </div>
+
       <form
-        onSubmit={submitNewPassword}
+        onSubmit={submitNewProfile}
         className="flex flex-col w-full justify-center items-center gap-[15vh] py-5"
       >
         <div className="w-full max-w-[350px] space-y-5">
           <div>
             <label
-              htmlFor="oldpwd"
+              htmlFor="email"
               className="block text-md font-medium leading-6"
             >
-              Current Password
+              Change Email
             </label>
             <div className="mt-2">
               <input
-                id="oldpwd"
-                name="oldpwd"
-                type="password"
-                autoComplete="current-password"
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
                 required
-                placeholder="Input your password"
-                value={data.oldPassword}
+                placeholder="Input your new email"
+                value={data.email}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  setdata({ ...data, oldPassword: e.target.value });
+                  setdata({ ...data, email: e.target.value });
                 }}
                 className="block w-full rounded-md border-0 py-1.5 shadow-sm text-slate-800 placeholder:text-secondayGray placeholder:opacity-[50%] sm:text-sm sm:leading-6 focus:px-2 transition-all"
               />
@@ -56,49 +55,23 @@ export default function Home() {
           <div>
             <div className="flex items-center justify-between">
               <label
-                htmlFor="newpwd"
+                htmlFor="name"
                 className="block text-md font-medium leading-6"
               >
-                New Password
+                Change Name
               </label>
             </div>
             <div className="mt-2">
               <input
-                id="newpwd"
-                name="newpwd"
-                type="password"
-                autoComplete="current-password"
+                id="name"
+                name="name"
+                type="text"
+                autoComplete="text"
                 required
-                placeholder="Input your new password"
-                value={data.newPassword}
+                placeholder="Input your new name"
+                value={data.name}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  setdata({ ...data, newPassword: e.target.value });
-                }}
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm text-black placeholder:text-secondayGray placeholder:opacity-[50%] sm:text-sm sm:leading-6 focus:px-2 transition-all"
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="confirmpwd"
-                className="block text-md font-medium leading-6"
-              >
-                Confirm New Password
-              </label>
-            </div>
-            <div className="mt-2">
-              <input
-                id="confirmpwd"
-                name="confirmpwd"
-                type="password"
-                autoComplete="current-password"
-                required
-                placeholder="Input your new password"
-                value={data.confirmNewPassword}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  setdata({ ...data, confirmNewPassword: e.target.value });
+                  setdata({ ...data, name: e.target.value });
                 }}
                 className="block w-full rounded-md border-0 py-1.5 shadow-sm text-black placeholder:text-secondayGray placeholder:opacity-[50%] sm:text-sm sm:leading-6 focus:px-2 transition-all"
               />

@@ -98,11 +98,11 @@ export default function Home() {
         </div>
       </div>
       <div className="w-full px-5 pb-[100px]">
-        <div className="flex flex-row justify-between p-5 px-3 font-medium">
+        <div className="flex flex-row justify-between p-5 px-3 font-semibold">
           <button
             className={`${
               activeTab === 1 &&
-              "text-primaryYellow underline underline-offset-2"
+              "text-primaryYellow underline underline-offset-2 font-bold"
             }`}
             onClick={() => {
               setActiveTab(1);
@@ -113,7 +113,7 @@ export default function Home() {
           <button
             className={`${
               activeTab === 2 &&
-              "text-primaryYellow underline underline-offset-2"
+              "text-primaryYellow underline underline-offset-2 font-bold"
             }`}
             onClick={() => {
               setActiveTab(2);
@@ -124,7 +124,7 @@ export default function Home() {
           <button
             className={`${
               activeTab === 3 &&
-              "text-primaryYellow underline underline-offset-2"
+              "text-primaryYellow underline underline-offset-2 font-bold"
             }`}
             onClick={() => {
               setActiveTab(3);
