@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import React, { ChangeEvent, FormEventHandler, useState } from "react";
+import React, { ChangeEvent, FormEventHandler, useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { trpc } from "@/utils/trpc";
+import { signIn, useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export default function Home() {
+  const { data: session, status } = useSession();
   // CONST
   const [data, setData] = useState({
     name: "",
@@ -13,13 +17,48 @@ export default function Home() {
     password: "",
     confirmPassword: "",
   });
+
+  const [isLoading, setisLoading] = useState(false);
   const router = useRouter();
+  const result = trpc.user.userRegister.useMutation()
+
+  useEffect(() => {
+    if (session) {
+      redirect("/data-collection");
+    }
+  }, [session]);
 
   // FUNCTION
   const submitRegistration: FormEventHandler<HTMLFormElement> = async (
     event
   ) => {
     event.preventDefault();
+    setisLoading(true);
+    await result.mutateAsync({
+      name: data.name, 
+      email: data.email,
+      password: data.password,
+      rePassword: data.confirmPassword,
+    })
+    if (result) {
+      try {
+        const res = await signIn("credentials", {
+          redirect: false,
+          email: data.email,
+          password: data.password,
+          callbackUrl: "/data-collection",
+        });
+        // print error if error
+        if (res?.error) {
+          toast.error("Invalid credentials");
+        } else {
+          toast.success("Login success");
+          router.refresh();
+        }
+      } catch(error) {}
+      setisLoading(false);
+      }
+      
     console.log(data);
   };
 
