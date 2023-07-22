@@ -127,8 +127,8 @@ export default function Home() {
             Daily Task
           </div>
           <div className="flex flex-col items-start justify-center w-full p-5">
-            {taskList.map((task) => (
-              <DailyTask {...task} onChange={onChange} />
+            {taskList.map((task,index) => (
+              <DailyTask key={index} {...task} onChange={onChange} />
             ))}
           </div>
           <div className="flex flex-col w-full items-end px-5">

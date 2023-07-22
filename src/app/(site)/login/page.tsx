@@ -30,15 +30,15 @@ export default function Home() {
     password: "",
   });
   const router = useRouter();
-  
+
   const { data: session, status } = useSession();
 
 
-  if(status === "loading"){
+  if (status === "loading") {
     return <div>Loading...</div>
   }
 
-  if(status == "authenticated"){
+  if (status == "authenticated") {
     redirect("/home")
   }
 
@@ -62,10 +62,10 @@ export default function Home() {
       } else {
         toast.success("Login success");
         router.refresh();
-        
+
       }
-    } catch (error) {}
-    
+    } catch (error) { }
+
   };
   return (
     <div className="relative flex flex-col justify-center items-center w-full min-h-screen bg-primaryBg">
