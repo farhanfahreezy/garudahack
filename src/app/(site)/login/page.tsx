@@ -51,7 +51,7 @@ export default function Home() {
 
       // Perform login authentication logic here
       const res = await signIn("credentials", {
-        redirect: true,
+        redirect: false,
         email: data.email,
         password: data.password,
         callbackUrl: "/home",

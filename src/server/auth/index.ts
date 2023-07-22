@@ -1,13 +1,15 @@
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions,getServerSession, } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { Credentials } from "@/utils/type";
 import { prisma } from "../db";
+import type { GetServerSidePropsContext } from "next";
+
 
 export const authOptions: NextAuthOptions = {
     session: {
         strategy: "jwt",
       },
-      
+
       providers: [
         CredentialsProvider({
           type: "credentials",
@@ -30,6 +32,7 @@ export const authOptions: NextAuthOptions = {
             });
     
             if (!user) {
+                console.log("user tidak ditemukan")
               throw new Error("User tidak ditemukan");
             }
     
@@ -98,3 +101,10 @@ export const authOptions: NextAuthOptions = {
       },
 }
 ;
+
+export const getServerAuthSession = (ctx: {
+    req: GetServerSidePropsContext["req"];
+    res: GetServerSidePropsContext["res"];
+  }) => {
+    return getServerSession(ctx.req, ctx.res, authOptions);
+  };
