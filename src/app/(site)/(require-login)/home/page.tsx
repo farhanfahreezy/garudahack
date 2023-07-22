@@ -37,11 +37,11 @@ export default function Home() {
     {
       companyLogo: "/dummy-company.jpg",
       companyName: "AdaptiveWorks",
-      position: "Software Engineer (Adaptive Systems)",
+      position: "UI/UX Designer",
       jobId: "67890",
-      location: "San Francisco",
+      location: "Jakarta",
       description:
-        "Join our team as a Software Engineer, working on adaptive systems to make technology accessible to all.",
+        "We are seeking a talented UI/UX Designer to join our team. The ideal candidate will be responsible for designing and improving the user experience of our digital products.",
       url: "https://www.linkedin.com/jobs/",
     },
     {
