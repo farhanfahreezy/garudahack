@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { trpc } from "@/utils/trpc";
 import { ChangeEvent, FormEventHandler, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -18,12 +18,12 @@ export default function Home() {
     communicationPreferences: "",
     accomodationsNeed: "",
   });
-  
+
   const [agreement, setAgreement] = useState(false);
   const [isSubmitSafe, setisSubmitSafe] = useState(false);
-  const result = trpc.user.userDataCollection.useMutation()
-  const router = useRouter()
-  
+  const result = trpc.user.userDataCollection.useMutation();
+  const router = useRouter();
+
   useEffect(() => {
     if (agreement) {
       if (Object.values(data).every((value) => value !== "")) {
@@ -32,15 +32,13 @@ export default function Home() {
     }
   }, [data, agreement]);
 
-  const submitData: FormEventHandler<HTMLFormElement> = async (
-    event
-  ) => {
-    event.preventDefault()
+  const submitData: FormEventHandler<HTMLFormElement> = async (event) => {
+    event.preventDefault();
     result.mutate({
       age: parseInt(data.age),
       phoneNumber: data.phoneNumber,
       highLvlEdu: data.education,
-      workExp : data.workExperience,
+      workExp: data.workExperience,
       prefIndustry: data.preferredIndustries,
       techSkill: data.technicalSkills,
       softSkill: data.softSkills,
@@ -49,14 +47,16 @@ export default function Home() {
       areasAdditional: data.additionalSupport,
       comPref: data.communicationPreferences,
       spesificAcc: data.accomodationsNeed,
-    })
-    if(result){
-      router.push('/home')
+    });
+    if (result) {
+      router.push("/recommendation");
     }
-    ;
   };
   return (
-    <form className="relative flex flex-col justify-center gap-5 items-center w-full min-h-screen bg-primaryBg" onSubmit={submitData}>
+    <form
+      className="relative flex flex-col justify-center gap-5 items-center w-full min-h-screen bg-primaryBg"
+      onSubmit={submitData}
+    >
       <div className="w-full text-center font-bold text-[24px]">
         Data Collection
       </div>
