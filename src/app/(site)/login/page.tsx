@@ -10,9 +10,10 @@ import React, {
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
+import { ImSpinner } from "react-icons/im";
 import { BsFacebook } from "react-icons/bs";
 import { signIn, useSession } from "next-auth/react";
-import { redirect } from 'next/navigation'
+import { redirect } from "next/navigation";
 import { stat } from "fs";
 
 interface formProps {
@@ -21,22 +22,21 @@ interface formProps {
 }
 
 export default function Home() {
-
-
-
   // CONST
   const [data, setData] = useState<formProps>({
     email: "",
     password: "",
   });
+  const [isLoading, setisLoading] = useState(false);
   const router = useRouter();
 
   const { data: session, status } = useSession();
+
   useEffect(() => {
     if (session) {
-      redirect("/home")
+      redirect("/home");
     }
-  }, [session])
+  }, [session]);
 
   // HOOKS
 
@@ -44,6 +44,7 @@ export default function Home() {
   const submitLogin: FormEventHandler<HTMLFormElement> = async (event) => {
     try {
       event.preventDefault();
+      setisLoading(true);
 
       // Perform login authentication logic here
       const res = await signIn("credentials", {
@@ -58,10 +59,9 @@ export default function Home() {
       } else {
         toast.success("Login success");
         router.refresh();
-
       }
-    } catch (error) { }
-
+    } catch (error) {}
+    setisLoading(false);
   };
   return (
     <div className="relative flex flex-col justify-center items-center w-full min-h-screen bg-primaryBg">
@@ -73,19 +73,19 @@ export default function Home() {
           <div className="w-full text-center font-bold text-[24px]">Log In</div>
           <div>
             <label
-              htmlFor="username"
+              htmlFor="email"
               className="block text-md font-medium leading-6"
             >
-              Username
+              Email
             </label>
             <div className="mt-2">
               <input
-                id="username"
-                name="username"
-                type="text"
-                autoComplete="text"
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
                 required
-                placeholder="username"
+                placeholder="example@mail.com"
                 value={data.email}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                   setData({ ...data, email: e.target.value });
@@ -129,9 +129,16 @@ export default function Home() {
         <div className="flex flex-col w-full justify-center items-center gap-10">
           <button
             type="submit"
-            className="w-full max-w-[350px] px-6 py-3 font-bold text-[18px] text-center text-white rounded-3xl bg-primaryYellow hover:scale-105 active:scale-95 transition-all"
+            disabled={isLoading}
+            className="flex flex-col items-center justify-center w-full max-w-[350px] px-6 py-3 font-bold text-[18px] text-center text-white rounded-3xl bg-primaryYellow hover:scale-105 active:scale-95 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            LOG IN
+            {isLoading ? (
+              <div className=" animate-spin">
+                <ImSpinner size={25} />
+              </div>
+            ) : (
+              "LOG IN"
+            )}
           </button>
           <Link href={"/register"} className="flex justify-center w-full">
             <p className="pt-2 text-sm text-primaryYellow font-medium opacity-[90%] hover:opacity-[100%] transition-all">
