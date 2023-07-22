@@ -37,7 +37,7 @@ export const authOptions: NextAuthOptions = {
               throw new Error("User tidak ditemukan");
             }
     
-            const isPasswordValid = await compareHash(password, user.password);
+            const isPasswordValid = password == user.password;
     
             if (!isPasswordValid) {
               throw new Error("Password salah");

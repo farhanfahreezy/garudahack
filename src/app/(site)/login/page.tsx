@@ -22,6 +22,7 @@ interface formProps {
 }
 
 export default function Home() {
+  const { data: session, status } = useSession();
   // CONST
   const [data, setData] = useState<formProps>({
     email: "",
@@ -30,7 +31,6 @@ export default function Home() {
   const [isLoading, setisLoading] = useState(false);
   const router = useRouter();
 
-  const { data: session, status } = useSession();
 
   useEffect(() => {
     if (session) {
