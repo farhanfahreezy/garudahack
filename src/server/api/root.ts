@@ -1,5 +1,4 @@
 import { authRouter } from './routers/auth';
-import { cobaRouter } from './routers/coba';
 import { createTRPCRouter } from './trpc';
 /**
  * This is the primary router for your server.
