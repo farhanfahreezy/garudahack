@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GrNotification } from "react-icons/gr";
 import {
   AiOutlineNotification,
@@ -15,12 +15,27 @@ import { ImEyeMinus } from "react-icons/im";
 import Toggle from "@/app/components/Toggle";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { stat } from "fs";
 
 export default function Home() {
+  const { data: session, status } = useSession();
   const [data, setdata] = useState({
-    name: "Binabisa",
-    imgUrl: "/default-profile.jpg",
+    name: session?.user?.name as string,
+    imgUrl:  session?.user?.image ?? "/default-profile.jpg",
   });
+  
+  useEffect(() => {
+    setdata({
+      name: session?.user?.name as string,
+      imgUrl:  session?.user?.image ?? "/default-profile.jpg",
+    });
+  }, [session]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="flex flex-col justify-start items-center w-full min-h-screen bg-primaryWhite py-[100px]">
       <div className="text-[30px] text-primaryYellow font-bold">Settings</div>
@@ -28,7 +43,7 @@ export default function Home() {
         <div className="flex flex-row justify-start items-center px-5 gap-5">
           <Image
             src={data.imgUrl}
-            alt={data.name}
+            alt={"Profile Picture"}
             width={0}
             height={0}
             sizes="100vw"
