@@ -8,6 +8,9 @@ interface JobPreviewProps {
   companyName: string;
   position: string;
   jobId: string;
+  location: string;
+  description: string;
+  url: string;
 }
 
 interface CommunityProps {
@@ -20,19 +23,58 @@ export default function Home() {
   // DUMMY DATA
   const user_name = "Binamasa";
 
-  const jobPreview: JobPreviewProps = {
-    companyLogo: "/dummy-company.jpg",
-    companyName: "GarudaHacks",
-    position: "Hacker",
-    jobId: "01234",
-  };
-
-  const job2: JobPreviewProps = { ...jobPreview, jobId: "123" };
-  const job3: JobPreviewProps = { ...jobPreview, jobId: "666" };
-  const job4: JobPreviewProps = { ...jobPreview, jobId: "777" };
-  const job5: JobPreviewProps = { ...jobPreview, jobId: "888" };
-
-  const jobPreviewList = [jobPreview, job2, job3, job4, job5];
+  const jobPreviewList: JobPreviewProps[] = [
+    {
+      companyLogo: "/dummy-company.jpg",
+      companyName: "InclusiveTech",
+      position: "Accessibility Specialist",
+      jobId: "56789",
+      location: "Remote",
+      description:
+        "We are looking for an Accessibility Specialist to ensure our digital products are usable by people with disabilities.",
+      url: "https://www.linkedin.com/jobs/",
+    },
+    {
+      companyLogo: "/dummy-company.jpg",
+      companyName: "AdaptiveWorks",
+      position: "Software Engineer (Adaptive Systems)",
+      jobId: "67890",
+      location: "San Francisco",
+      description:
+        "Join our team as a Software Engineer, working on adaptive systems to make technology accessible to all.",
+      url: "https://www.linkedin.com/jobs/",
+    },
+    {
+      companyLogo: "/dummy-company.jpg",
+      companyName: "EmpowerYou",
+      position: "Disability Advocate",
+      jobId: "78901",
+      location: "New York",
+      description:
+        "Looking for a Disability Advocate to champion the rights of people with disabilities and promote inclusivity in society.",
+      url: "https://www.linkedin.com/jobs/",
+    },
+    {
+      companyLogo: "/dummy-company.jpg",
+      companyName: "InclusiDesign",
+      position: "Inclusive UX Designer",
+      jobId: "89012",
+      location: "Seattle",
+      description:
+        "Seeking an Inclusive UX Designer to create accessible and inclusive user experiences for our products.",
+      url: "https://www.linkedin.com/jobs/",
+    },
+    {
+      companyLogo: "/dummy-company.jpg",
+      companyName: "DiverseTech",
+      position: "Digital Accessibility Consultant",
+      jobId: "90123",
+      location: "London",
+      description:
+        "We are hiring a Digital Accessibility Consultant to advise and implement accessibility best practices.",
+      url: "https://www.linkedin.com/jobs/",
+    },
+  ];
 
   const komun1: CommunityProps = {
     communityLogo:

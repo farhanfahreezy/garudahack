@@ -16,6 +16,19 @@ const Progressbar = ({
   totalTask,
   completion,
 }: ProgressbarProps) => {
+  const arr = [
+    "w-[0%]",
+    "w-[10%]",
+    "w-[20%]",
+    "w-[30%]",
+    "w-[40%]",
+    "w-[50%]",
+    "w-[60%]",
+    "w-[70%]",
+    "w-[80%]",
+    "w-[90%]",
+    "w-[100%]",
+  ];
   return (
     <div className={`relative w-full h-[20px]`}>
       <div

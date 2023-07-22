@@ -6,6 +6,9 @@ interface JobPreviewProps {
   companyName: string;
   position: string;
   jobId: string;
+  location: string;
+  description: string;
+  url: string;
 }
 
 interface JobPreviewListsProps {
