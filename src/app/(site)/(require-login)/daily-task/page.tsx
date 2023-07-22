@@ -81,7 +81,7 @@ export default function Home() {
 
   useEffect(() => {
     setData({ ...data, name: session?.user?.name as string });
-  }, [session]);
+  }, [session, data]);
 
   useEffect(() => {
     let completed = 0;

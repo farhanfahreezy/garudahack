@@ -134,7 +134,7 @@ export default function Home() {
               <div className="text-green-400 font-semibold">8/10 Point</div>
               <div className="text-center text-[14px] py-2">
                 Congratulations on passing the test and acquiring new knowledge!
-                Let's embark on the next exciting journey!
+                Let`s embark on the next exciting journey!
               </div>
               <div className="flex flex-row w-full items-center justify-center">
                 <Link

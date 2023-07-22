@@ -11,7 +11,10 @@ const Quiz = ({ question, answer }: QuizProps) => {
       <div className="font-semibold">{question}</div>
       <div className="flex flex-col justify-center items-start">
         {answer.map((ans, index) => (
-          <div className="flex flex-row justify-start items-center gap-2">
+          <div
+            key={index}
+            className="flex flex-row justify-start items-center gap-2"
+          >
             <input type="radio" />
             <div>{ans}</div>
           </div>
