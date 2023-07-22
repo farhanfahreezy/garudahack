@@ -52,7 +52,7 @@ const CoursePreview = ({
             <div className="p-5 bg-white rounded-xl flex flex-col items-center justify-center text-black gap-2 w-[80vw]">
               <div className="text-[20px] text-black">Belajar UI/UX</div>
               <Image
-                src={"/dummy-company.png"}
+                src={"/dummy-company.jpg"}
                 alt="Company Logo"
                 width={0}
                 height={0}
@@ -70,16 +70,16 @@ const CoursePreview = ({
               <div className="w-full h-[5px] border-b-2 border-black"></div>
               <div className="font-semibold text-black">Amount: 3 modules</div>
               <div className="font-semibold text-black">Provided by: udemy</div>
-              <div className="px-4 py-1 rounded-xl bg-primaryYellow w-full border-2 border-primaryYellow text-white font-medium flex flex-row item-center justify-between">
+              <div className="px-4 py-1 rounded-xl bg-primaryYellow w-full border-2 border-primaryYellow text-white font-medium flex flex-row items-center justify-between">
                 <div className="text-white">1. Intoduction to UI/UX</div>
-                <div className="flex flex-row justify-center items-center">
+                <div className="flex flex-row justify-center items-center gap-2">
                   <div className="flex flex-col justify-center items-center">
-                    <AiOutlineClockCircle size={30} color="black" />
-                    <div className="text-[10px]">47 min</div>
+                    <AiOutlineClockCircle size={20} color="black" />
+                    <div className="text-[10px] text-black">47 min</div>
                   </div>
                   <Link
                     href={"/watch-vid"}
-                    className=" bg-primaryBg px-4 py-1 rounded-lg"
+                    className=" bg-primaryBg px-4 py-1 rounded-lg text-black"
                   >
                     Go
                   </Link>
