@@ -9,13 +9,8 @@ export default async function LoginLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
-  // if (!session) {
-  //   redirect("/");
-  // }
-  return (
-    <div className="w-full min-h-screen relative">
-      {children}
-      <MobileNavbar />
-    </div>
-  );
+  if (!session) {
+    redirect("/");
+  }
+  return <div className="w-full min-h-screen relative">{children}</div>;
 }

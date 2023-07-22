@@ -3,17 +3,17 @@
 import CoursePreviewList from "@/app/components/CoursePreviewList";
 import Progressbar from "@/app/components/Progressbar";
 import { useEffect, useState } from "react";
-import { trpc } from '@/utils/trpc'
+import { trpc } from "@/utils/trpc";
 
 interface CoursePreviewProps {
-    _count: {
+  _count: {
     module: number;
-    };
-    id: number;
-    title: string;
-    desc: string;
-    provider: string;
-    moduleTime: number;
+  };
+  id: number;
+  title: string;
+  desc: string;
+  provider: string;
+  moduleTime: number;
 }
 
 // DUMMY DATA
@@ -37,15 +37,14 @@ export default function Home() {
   const coursesData2 = trpc.course.getUserCourses.useQuery();
   const [courses, setCourses] = useState<CoursePreviewProps[]>([]);
   const [activeTab, setActiveTab] = useState(1);
-  
-  useEffect(() => {
-    setCourses(response.data as CoursePreviewProps[] ?? [])
-  }, [coursesData.data, coursesData2.data,response.data]);
 
-  if(response.isLoading){
-    return <div>Loading...</div>
+  useEffect(() => {
+    setCourses((response.data as CoursePreviewProps[]) ?? []);
+  }, [coursesData.data, coursesData2.data, response.data]);
+
+  if (response.isLoading) {
+    return <div>Loading...</div>;
   }
- 
 
   return (
     <div className="relative flex flex-col justify-start items-center w-full min-h-screen bg-primaryBg">
@@ -92,7 +91,7 @@ export default function Home() {
             }`}
             onClick={() => {
               setActiveTab(1);
-              setCourses(response.data as CoursePreviewProps[] ?? [])
+              setCourses((response.data as CoursePreviewProps[]) ?? []);
             }}
           >
             Not taken
@@ -104,7 +103,7 @@ export default function Home() {
             }`}
             onClick={() => {
               setActiveTab(2);
-              setCourses(coursesData.data as CoursePreviewProps[] ?? [])
+              setCourses((coursesData.data as CoursePreviewProps[]) ?? []);
             }}
           >
             On going
@@ -116,7 +115,7 @@ export default function Home() {
             }`}
             onClick={() => {
               setActiveTab(3);
-              setCourses(coursesData2.data as CoursePreviewProps[] ?? [])
+              setCourses((coursesData2.data as CoursePreviewProps[]) ?? []);
             }}
           >
             Completed
