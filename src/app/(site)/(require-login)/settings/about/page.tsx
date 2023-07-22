@@ -1,8 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
+import { MdArrowBackIosNew } from "react-icons/md";
 
 export default function Home() {
   return (
-    <div className="flex flex-col justify-start items-center w-full min-h-screen bg-primaryWhite py-[100px]">
+    <div className="relative flex flex-col justify-start items-center w-full min-h-screen bg-primaryWhite py-[100px]">
+      <Link href={"/settings"} className="absolute top-[20px] left-[15px]">
+        <MdArrowBackIosNew color={"#FF914D"} size={30} />
+      </Link>
       <div className="text-[30px] text-primaryYellow font-bold">About Us</div>
       <div className="pt-10 pb-8">
         <Image
