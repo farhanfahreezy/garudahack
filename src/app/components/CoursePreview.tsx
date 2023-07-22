@@ -34,7 +34,10 @@ const CoursePreview = ({
           <div>Amount: {totalModule.module} modules</div>
           <div>Provided by: {provider}</div>
         </div>
-        <button className="px-6 py-2 rounded-lg bg-primaryBg text-primaryYellow">
+        <button
+          onClick={() => setopenModal(true)}
+          className="px-6 py-2 rounded-lg bg-primaryBg text-primaryYellow"
+        >
           Start
         </button>
       </div>
@@ -78,7 +81,6 @@ const CoursePreview = ({
                     href={"/watch-vid"}
                     className=" bg-primaryBg px-4 py-1 rounded-lg"
                   >
-                    {" "}
                     Go
                   </Link>
                 </div>
