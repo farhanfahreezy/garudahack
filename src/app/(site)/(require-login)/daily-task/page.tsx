@@ -1,6 +1,7 @@
 "use client";
 
 import DailyTask from "@/app/components/DailyTask";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -72,10 +73,15 @@ export default function Home() {
   });
   const [taskList, setTaskList] = useState<TaskProps[]>([]);
   const [completedTask, setCompletedTask] = useState(0);
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     setTaskList(dummyTask);
   }, []);
+
+  useEffect(() => {
+    setData({ ...data, name: session?.user?.name as string });
+  }, [session]);
 
   useEffect(() => {
     let completed = 0;
@@ -92,6 +98,10 @@ export default function Home() {
     }
     setTaskList(newTask);
   };
+
+  if (status == "loading") {
+    return <div>loading ...</div>;
+  }
 
   return (
     <div className="flex flex-col justify-start items-center w-full min-h-screen bg-primaryWhite">
@@ -127,7 +137,7 @@ export default function Home() {
             Daily Task
           </div>
           <div className="flex flex-col items-start justify-center w-full p-5">
-            {taskList.map((task,index) => (
+            {taskList.map((task, index) => (
               <DailyTask key={index} {...task} onChange={onChange} />
             ))}
           </div>

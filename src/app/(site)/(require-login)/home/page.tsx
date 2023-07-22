@@ -1,7 +1,10 @@
+"use client";
 import Community from "@/app/components/Community";
 import CommunityList from "@/app/components/CommunityList";
 import JobPreviewList from "@/app/components/JobPreviewList";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface JobPreviewProps {
   companyLogo: string;
@@ -21,8 +24,14 @@ interface CommunityProps {
 
 export default function Home() {
   // DUMMY DATA
-  const user_name = "Binamasa";
-
+  const [name, setName] = useState("");
+  const { data: session, status } = useSession();
+  useEffect(() => {
+    setName(session?.user?.name as string);
+  }, [session]);
+  if (status == "loading") {
+    return <div>loading ...</div>;
+  }
   const jobPreviewList: JobPreviewProps[] = [
     {
       companyLogo: "/dummy-company.jpg",
@@ -117,7 +126,7 @@ export default function Home() {
             } w-[80px] aspect-square rounded-full`}
           />
           <div className="text-white font-semibold text-[18px] py-5">
-            Welcome back, {user_name}!
+            Welcome back, {name}!
           </div>
         </div>
       </div>
