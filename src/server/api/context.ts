@@ -39,7 +39,6 @@ type CreateContextOptions = {
   export const createTRPCContext = async (opts: FetchCreateContextFnOptions): Promise<Context> => {  
     // Get the session from the server using the getServerSession wrapper function
    const session = await getServerSession(authOptions)
-  
     return createInnerTRPCContext({
       session,
     });

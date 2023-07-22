@@ -3,13 +3,17 @@
 import CoursePreviewList from "@/app/components/CoursePreviewList";
 import Progressbar from "@/app/components/Progressbar";
 import { useEffect, useState } from "react";
+import { trpc } from '@/utils/trpc'
 
 interface CoursePreviewProps {
-  courseId: string;
-  title: string;
-  description: string;
-  totalModule: number;
-  provider: string;
+    _count: {
+    module: number;
+    };
+    id: number;
+    title: string;
+    desc: string;
+    provider: string;
+    moduleTime: number;
 }
 
 // DUMMY DATA
@@ -25,41 +29,23 @@ const completionCourse = Math.round((completedCourse / totalCourse) * 10) * 10;
 const completionTask = Math.round((completedTask / totalTask) * 10) * 10;
 const completionPoints = Math.round((points / availablePoints) * 10) * 10;
 
-const course1: CoursePreviewProps = {
-  courseId: "1",
-  title: "Programming Fundamentals",
-  description:
-    "This course covers the basics of programming languages, including Python, Java, or JavaScript. Practical coding exercises and mini-projects will reinforce their understanding and problem-solving skills.",
-  totalModule: 6,
-  provider: "Garuda Hacks",
-};
-
-const course2: CoursePreviewProps = {
-  courseId: "2",
-  title: "Graphic Design for Beginners",
-  description:
-    "This course introduces users to graphic design principles and tools like Adobe Photoshop or Illustrator. Hands-on design projects will allow them to apply their knowledge and develop a portfolio.",
-  totalModule: 3,
-  provider: "Dilpa Graphic School",
-};
-
-const course3: CoursePreviewProps = {
-  ...course1,
-  courseId: "3",
-};
-
-const courseList = [course1, course2, course3];
-
 // END OF DUMMY DATA
 
 export default function Home() {
+  const response = trpc.course.filteredCourses.useQuery();
+  const coursesData = trpc.course.completedCourseUser.useQuery();
+  const coursesData2 = trpc.course.getUserCourses.useQuery();
   const [courses, setCourses] = useState<CoursePreviewProps[]>([]);
   const [activeTab, setActiveTab] = useState(1);
-
+  
   useEffect(() => {
-    // FETCH DATA BASED ON ACTIVE TAB
-    setCourses(courseList);
-  }, [activeTab]);
+    setCourses(response.data as CoursePreviewProps[] ?? [])
+  }, [coursesData.data, coursesData2.data,response.data]);
+
+  if(response.isLoading){
+    return <div>Loading...</div>
+  }
+ 
 
   return (
     <div className="relative flex flex-col justify-start items-center w-full min-h-screen bg-primaryBg">
@@ -106,6 +92,7 @@ export default function Home() {
             }`}
             onClick={() => {
               setActiveTab(1);
+              setCourses(response.data as CoursePreviewProps[] ?? [])
             }}
           >
             Not taken
@@ -117,6 +104,7 @@ export default function Home() {
             }`}
             onClick={() => {
               setActiveTab(2);
+              setCourses(coursesData.data as CoursePreviewProps[] ?? [])
             }}
           >
             On going
@@ -128,6 +116,7 @@ export default function Home() {
             }`}
             onClick={() => {
               setActiveTab(3);
+              setCourses(coursesData2.data as CoursePreviewProps[] ?? [])
             }}
           >
             Completed

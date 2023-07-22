@@ -1,19 +1,23 @@
 import React from "react";
 
 interface CoursePreviewProps {
-  courseId: string;
+  _count: {
+  module: number;
+  };
+  id: number;
   title: string;
-  description: string;
-  totalModule: number;
+  desc: string;
   provider: string;
+  moduleTime: number;
 }
 
 const CoursePreview = ({
-  courseId,
+  id,
   title,
-  description,
-  totalModule,
+  desc: description,
   provider,
+  moduleTime: modulTime,
+  _count: totalModule,
 }: CoursePreviewProps) => {
   return (
     <div className="flex flex-col w-full p-5 rounded-xl gap-10 text-white bg-primaryYellow">
@@ -23,7 +27,7 @@ const CoursePreview = ({
       </div>
       <div className="flex flex-row justify-between items-center w-full">
         <div className="flex flex-col items-start justify-center text-[14px] font-medium">
-          <div>Amount: {totalModule} modules</div>
+          <div>Amount: {totalModule.module} modules</div>
           <div>Provided by: {provider}</div>
         </div>
         <button className="px-6 py-2 rounded-lg bg-primaryBg text-primaryYellow">

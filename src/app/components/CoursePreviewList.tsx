@@ -2,11 +2,14 @@ import React from "react";
 import CoursePreview from "./CoursePreview";
 
 interface CoursePreviewProps {
-  courseId: string;
+  _count: {
+  module: number;
+  };
+  id: number;
   title: string;
-  description: string;
-  totalModule: number;
+  desc: string;
   provider: string;
+  moduleTime: number;
 }
 
 interface CoursePreviewListProps {
@@ -18,7 +21,7 @@ const CoursePreviewList = ({ courses }: CoursePreviewListProps) => {
       {courses.length === 0
         ? "Nothing to show here"
         : courses.map((course) => (
-            <CoursePreview {...course} key={course.courseId} />
+            <CoursePreview {...course} key={course.id} />
           ))}
     </div>
   );

@@ -2,6 +2,7 @@ import { z } from "zod";
 import { prisma } from "@/server/db";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { truncate } from "fs/promises";
+import { CourseResponse } from "@/utils/type";
 
 export const courserRouter = createTRPCRouter({
     getUserCourses: protectedProcedure
@@ -22,7 +23,27 @@ export const courserRouter = createTRPCRouter({
                     userId: person.id
                 }
             })
-            return courses
+            const returnedCourse : CourseResponse[] = []
+
+            for (const course of courses) {
+                const courseData = await ctx.prisma.course.findUnique({
+                    where:{
+                        id: course.courseId
+                    },
+                    include:{
+                        _count:{
+                            select:{
+                                module:true
+                            }
+                        }
+                    }
+                })
+                if(courseData){
+                    returnedCourse.push(courseData)
+                }
+            }
+
+            return returnedCourse
         })
     ,
     filteredCourses: protectedProcedure.query(async ({ ctx }) => {
@@ -36,7 +57,7 @@ export const courserRouter = createTRPCRouter({
             success: false,
             message: "User not found",
           };
-        }
+        } 
     
         const coursesUser = await ctx.prisma.courseOnUser.findMany({
           where: {
@@ -44,8 +65,16 @@ export const courserRouter = createTRPCRouter({
           },
         });
     
-        const courses = await ctx.prisma.course.findMany();
-    
+        const courses = await ctx.prisma.course.findMany({
+            include:{
+                _count:{
+                    select:{
+                        module:true
+                    }
+                }
+            }
+        });
+
         const filteredCourses = courses.filter(
           (course) => !coursesUser.some((userCourse) => userCourse.courseId === course.id)
         );
@@ -73,8 +102,35 @@ export const courserRouter = createTRPCRouter({
                 status:true
               },
           },
+          include:{
+            _count:{
+                select:{
+                    module:true
+                }
+            }
+        }
         });
+
+        const returnedCourse : CourseResponse[] = []
+
+            for (const course of completedCourse) {
+                const courseData = await ctx.prisma.course.findUnique({
+                    where:{
+                        id: course.courseId
+                    },
+                    include:{
+                        _count:{
+                            select:{
+                                module:true
+                            }
+                        }
+                    }
+                })
+                if(courseData){
+                    returnedCourse.push(courseData)
+                }
+            }
     
-        return completedCourse;
+        return returnedCourse;
       }),
 });
