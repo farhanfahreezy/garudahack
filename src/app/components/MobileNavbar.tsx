@@ -20,7 +20,7 @@ const MobileNavbar = () => {
       >
         <AiFillHome
           size={35}
-          color={pathname === "/home" ? "#FF914D" : "#000000"}
+          color={pathname === "/home" ? "#FF914D" : "#3E3C3C"}
         />
       </Link>
       <Link
@@ -29,7 +29,7 @@ const MobileNavbar = () => {
       >
         <FaBookBookmark
           size={30}
-          color={pathname === "/courses" ? "#FF914D" : "#000000"}
+          color={pathname === "/courses" ? "#FF914D" : "#3E3C3C"}
         />
       </Link>
       <Link
@@ -54,7 +54,7 @@ const MobileNavbar = () => {
       >
         <SiGoogleassistant
           size={30}
-          color={pathname === "/ai-assistant" ? "#FF914D" : "#000000"}
+          color={pathname === "/ai-assistant" ? "#FF914D" : "#3E3C3C"}
         />
       </Link>
       <Link
@@ -63,7 +63,7 @@ const MobileNavbar = () => {
       >
         <IoSettings
           size={30}
-          color={pathname === "/settings" ? "#FF914D" : "#000000"}
+          color={pathname === "/settings" ? "#FF914D" : "#3E3C3C"}
         />
       </Link>
     </div>
