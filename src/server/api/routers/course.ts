@@ -133,4 +133,26 @@ export const courserRouter = createTRPCRouter({
     
         return returnedCourse;
       }),
+
+      getCourseDetail: protectedProcedure
+      .input(z.object({
+          courseId: z.number()
+      }))
+      .query(async ({ ctx, input }) => {
+          const course = await ctx.prisma.course.findUnique({
+              where:{
+                  id: input.courseId
+              },
+              include:{
+                  module: true,
+                }
+          })
+          if(!course){
+              return {
+                  success: false,
+                  message: "Course not found",
+              }
+          }
+          return course
+      }),
 });
